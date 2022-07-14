@@ -3,6 +3,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "packageManager": "yarn@3.1.1",
+  "private": true,
   "scripts": {
     "build": "node scripts/build.js"
   },
