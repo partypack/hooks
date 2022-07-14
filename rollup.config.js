@@ -17,7 +17,7 @@ const plugins = [
   resolve({
     extensions: ['.ts', '.tsx'],
   }),
-  commonjs(),
+  // commonjs(),
   babel({
     extensions: ['.ts', '.tsx'],
     envName: 'production',

@@ -1,11 +1,10 @@
 {
-  "name": "@party/hooks",
-  "version": "0.1.0-0",
+  "name": "@partypack/hooks",
+  "version": "0.1.1",
   "main": "index.js",
   "typings": "index.d.ts",
   "license": "MIT",
   "peerDependencies": {
-    "core-js": "*",
     "react": "*"
   }
 }
