@@ -1,12 +1,6 @@
 import useRequiredContext from './required-context';
-import useWhatChanged, { WhatChangedProvider } from './what-changed';
+import useTrace from './trace';
 import useRace from './race';
 import useDebounce from './debounce';
 
-export {
-  useRequiredContext,
-  useWhatChanged,
-  WhatChangedProvider,
-  useRace,
-  useDebounce,
-};
+export { useRequiredContext, useTrace, useRace, useDebounce };
