@@ -5,6 +5,7 @@ import babel from '@rollup/plugin-babel';
 import pkg from './package.json';
 
 const externalPackages = [
+  ...Object.keys(pkg.dependencies),
   ...Object.keys(pkg.devDependencies),
 ];
 
