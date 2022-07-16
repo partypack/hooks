@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import useValidation, { Validator } from '../lib/validation';
+import useValidation, { Validator } from '../lib/useValidation';
 
 function validator(value: string): Validator[] {
   return [(v: string) => (v !== value ? 'invalid' : undefined)];

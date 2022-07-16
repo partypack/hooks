@@ -4,6 +4,10 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "license": "MIT",
+  "scripts": {
+    "build": "cd .. && yarn build",
+    "prepublishOnly": "rm *.js *.d.ts *.d.ts.map && build"
+  },
   "peerDependencies": {
     "react": "*"
   },
