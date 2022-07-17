@@ -47,6 +47,14 @@ describe('useValidation', () => {
     expect(result.current.errors.value).toBeUndefined();
   });
 
+  test('invalid initialization should be invalid', () => {
+    const { result } = renderHook(() =>
+      useValidation({ value: 'invalid' }, { value: validator('initial') })
+    );
+
+    expect(result.current.invalid).toBe(true);
+  });
+
   test('invalid should track validation state', () => {
     let value = 'initial';
 
