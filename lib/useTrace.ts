@@ -1,4 +1,4 @@
-import { useId, useRef, useMemo, useEffect, DependencyList } from 'react';
+import { useId, useRef, useEffect, DependencyList } from 'react';
 
 export default function useTrace(
   keyOrDeps: string | DependencyList,
@@ -14,13 +14,13 @@ export default function useTrace(
       ? [`${keyOrDeps} (effect${unique})`, depsWithKey]
       : [`effect${unique}`, keyOrDeps];
 
-  const tracker = useMemo(() => [...deps], []);
+  const tracker = useRef([...deps]);
 
   useEffect(() => {
     const changes = deps.reduce((acc: object, dep, index) => {
-      const old = tracker[index];
+      const old = tracker.current[index];
       const prefix = old !== dep ? '➤' : '⏺';
-      tracker[index] = dep;
+      tracker.current[index] = dep;
 
       return {
         ...acc,

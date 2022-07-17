@@ -2,7 +2,6 @@ import {
   useRef,
   useReducer,
   useMemo,
-  useEffect,
   useCallback,
   Dispatch,
   SetStateAction,
@@ -79,7 +78,7 @@ export default function useForm<
   T extends Record<string, any> = Record<string, unknown>
 >(initial: Record<string, unknown>): Form<T> {
   const initialRef = useRef(initial);
-  useEffect(() => void (initialRef.current = initial));
+  initialRef.current = initial;
 
   const [{ values, updates }, dispatch] = useReducer(reducer, {}, () => {
     return {
