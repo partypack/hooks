@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "cd .. && yarn build",
-    "prepublishOnly": "rm *.js *.d.ts *.d.ts.map && build"
+    "prepublishOnly": "rm *.js *.d.ts *.d.ts.map && yarn build"
   },
   "peerDependencies": {
     "react": "*"
