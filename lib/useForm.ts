@@ -71,14 +71,13 @@ export type Form<T extends Record<string, any> = Record<string, unknown>> = {
   values: T;
   partial: Partial<T>;
   update: { [K in keyof T]: Dispatch<SetStateAction<T[K]>> };
-  reset: DispatchWithoutAction;
+  reset: Dispatch<Partial<T> | undefined>;
 };
 
 export default function useForm<
   T extends Record<string, any> = Record<string, unknown>
->(initial: Record<string, unknown>): Form<T> {
+>(initial: Partial<T>): Form<T> {
   const initialRef = useRef(initial);
-  initialRef.current = initial;
 
   const [{ values, updates }, dispatch] = useReducer(reducer, {}, () => {
     return {
@@ -99,10 +98,10 @@ export default function useForm<
     []
   );
 
-  const reset = useCallback(
-    () => void dispatch({ type: 'reset', initial: initialRef.current }),
-    []
-  );
+  const reset = useCallback((initial?: Partial<T>) => {
+    initialRef.current = initial ?? initialRef.current;
+    dispatch({ type: 'reset', initial: initialRef.current });
+  }, []);
 
   return {
     pristine: !Object.values(updates).length,
