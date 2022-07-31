@@ -5,8 +5,8 @@
   "typings": "index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "cd .. && yarn build",
-    "prepublishOnly": "rm *.js *.d.ts *.d.ts.map && yarn build"
+    "build": "cd .. && pnpm build",
+    "prepublishOnly": "rm *.js *.d.ts *.d.ts.map && pnpm build"
   },
   "peerDependencies": {
     "react": "*"
