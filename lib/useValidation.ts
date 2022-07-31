@@ -10,6 +10,10 @@ export interface SyncCallback {
   (error?: string): SyncedResult;
 }
 
+export interface ValidateCallback {
+  (onValid?: DispatchWithoutAction): void;
+}
+
 export interface Validator {
   (value: any, id: string, sync?: SyncCallback): ValidationResult;
 }
@@ -27,13 +31,15 @@ type ValidationReducerState = {
   errors: Record<string, string>;
   validation: Record<string, ValidationResult>;
   cancel: Record<string, DispatchWithoutAction | undefined>;
+  onValid?: DispatchWithoutAction;
 };
 
 type ValidationReducerAction =
   | { type: 'update'; values: Record<string, unknown> }
   | { type: 'sync'; id: string; error?: SyncedResult }
   | { type: 'validate'; id: string }
-  | { type: 'validate-all' };
+  | { type: 'validate-all'; onValid?: DispatchWithoutAction }
+  | { type: 'clear' };
 
 function sync(error?: string): SyncedResult {
   return error ? Object.assign(error, { __synced__: true }) : error;
@@ -45,13 +51,13 @@ export type Validation<
   invalid: boolean;
   errors: { [K in keyof T]: string };
   waiting: { [K in keyof T]: boolean };
-  validate: { [K in keyof T]: DispatchWithoutAction } & DispatchWithoutAction;
+  validate: { [K in keyof T]: DispatchWithoutAction } & ValidateCallback;
 };
 
 export default function useValidation<
   T extends Record<string, any> = Record<string, unknown>
 >(values: T, validators: Record<string, Validator[]>): Validation {
-  const [{ errors, validation }, dispatch] = useReducer(
+  const [{ errors, validation, onValid }, dispatch] = useReducer(
     (state: ValidationReducerState, action: ValidationReducerAction) => {
       switch (action.type) {
         case 'update': {
@@ -141,7 +147,23 @@ export default function useValidation<
             )
           ) as Record<string, string>;
 
-          return isEqual(errors, state.errors) ? state : { ...state, errors };
+          const valid = !Object.values(state.validation).filter(Boolean).length;
+
+          const onValid =
+            valid && action.onValid
+              ? () => {
+                  action.onValid?.();
+                  dispatch({ type: 'clear' });
+                }
+              : undefined;
+
+          return !onValid && isEqual(errors, state.errors)
+            ? state
+            : { ...state, errors, onValid };
+        }
+
+        case 'clear': {
+          return state.onValid ? { ...state, onValid: undefined } : state;
         }
       }
     },
@@ -154,6 +176,8 @@ export default function useValidation<
     })
   );
 
+  useEffect(() => void onValid?.(), [onValid]);
+
   useEffect(
     () => void dispatch({ type: 'update', values }),
     [stringify(values)]
@@ -162,7 +186,8 @@ export default function useValidation<
   const validate = useMemo(
     () =>
       Object.assign(
-        () => void dispatch({ type: 'validate-all' }),
+        (onValid?: DispatchWithoutAction) =>
+          void dispatch({ type: 'validate-all', onValid }),
         Object.fromEntries(
           Object.keys(values).map((id) => [
             id,
