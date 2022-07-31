@@ -1,3 +1,5 @@
+export { default as useConst } from './useConst';
+export { default as useToggle } from './useToggle';
 export { default as useRequiredContext } from './useRequiredContext';
 export { default as useTrace } from './useTrace';
 export { default as useRace } from './useRace';
