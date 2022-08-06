@@ -5,7 +5,6 @@ import {
   useCallback,
   Dispatch,
   SetStateAction,
-  DispatchWithoutAction,
 } from 'react';
 import isEqual from 'lodash/isEqual';
 

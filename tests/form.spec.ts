@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import useForm from '../lib/useForm';
+import useForm from '../lib/use-form';
 
 describe('useForm', () => {
   test('should initialize', () => {

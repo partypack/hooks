@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
-import useDebouncedEffect from '../lib/useDebouncedEffect';
-import SideEffect from './util/SideEffect';
+import useDebouncedEffect from '../lib/use-debounced-effect';
+import SideEffect from './util/side-effect';
 
 function effect(id: string, record: SideEffect) {
   return () => {
