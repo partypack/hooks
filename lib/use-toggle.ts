@@ -1,19 +1,19 @@
 import { useState, useCallback, DispatchWithoutAction } from 'react';
 
 export interface ToggleState {
-  value: boolean;
+  active: boolean;
   on: DispatchWithoutAction;
   off: DispatchWithoutAction;
   toggle: DispatchWithoutAction;
 }
 
 export default function useToggle(init?: boolean): ToggleState {
-  const [value, setValue] = useState(init ?? false);
+  const [active, setActive] = useState(init ?? false);
 
   return {
-    value,
-    on: useCallback(() => void setValue(true), []),
-    off: useCallback(() => void setValue(false), []),
-    toggle: useCallback(() => void setValue((current) => !current), []),
+    active,
+    on: useCallback(() => void setActive(true), []),
+    off: useCallback(() => void setActive(false), []),
+    toggle: useCallback(() => void setActive((current) => !current), []),
   };
 }
