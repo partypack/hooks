@@ -15,7 +15,7 @@ export interface ValidateCallback {
 }
 
 export interface Validator {
-  (value: any, id: string, sync?: SyncCallback): ValidationResult;
+  (value: any, id: string, sync: SyncCallback): ValidationResult;
 }
 
 function isError(state: ValidationResult): state is string {

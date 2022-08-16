@@ -70,7 +70,7 @@ export type Form<T extends Record<string, any> = Record<string, unknown>> = {
   values: T;
   partial: Partial<T>;
   update: { [K in keyof T]: Dispatch<SetStateAction<T[K]>> };
-  reset: Dispatch<Partial<T> | undefined>;
+  reset: (init?: Partial<T> | undefined) => void;
 };
 
 export default function useForm<

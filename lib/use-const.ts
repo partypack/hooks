@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-type InitFn<T> = () => T;
+export type InitFn<T> = () => T;
 
 export default function useConst<T extends any>(init: T | InitFn<T>): T {
   const ref = useRef<T | null>(null);
