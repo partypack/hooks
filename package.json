@@ -2,8 +2,8 @@
   "name": "@partypack/hooks",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "packageManager": "yarn@3.1.1",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "build": "node scripts/build.js",
     "test": "jest"
