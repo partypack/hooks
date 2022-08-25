@@ -61,9 +61,9 @@ describe('useForm', () => {
     let value = 'before';
     const { result, rerender } = renderHook(() => useForm({ value }));
     act(() => result.current.update.value('update'));
-    value = 'after';
+    value = 'before';
     rerender();
-    act(() => result.current.reset());
+    act(() => result.current.reset({ value: 'after' }));
     expect(result.current.values.value).toBe('after');
   });
 

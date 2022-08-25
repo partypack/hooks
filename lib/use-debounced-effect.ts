@@ -26,7 +26,4 @@ export default function useDebouncedEffect(
     callback.current?.();
     callback.current = effect?.();
   }, [debounce]);
-
-  // TODO: do we need to be concerned about invoking cleanups twice?
-  useEffect(() => () => void callback.current?.(), []);
 }
