@@ -3,6 +3,7 @@ export { default as useToggle } from './use-toggle';
 export { default as useRequiredContext } from './use-required-context';
 export { default as useTrace } from './use-trace';
 export { default as useRace } from './use-race';
+export { default as useIsomorphicEffect } from './use-isomorphic-effect';
 export { default as useDebounce } from './use-debounce';
 export { default as useDebouncedEffect } from './use-debounced-effect';
 export { default as useForm } from './use-form';
