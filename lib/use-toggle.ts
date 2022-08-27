@@ -4,7 +4,7 @@ export interface ToggleState {
   active: boolean;
   on: DispatchWithoutAction;
   off: DispatchWithoutAction;
-  toggle: DispatchWithoutAction;
+  flip: DispatchWithoutAction;
 }
 
 export default function useToggle(init?: boolean): ToggleState {
@@ -14,6 +14,6 @@ export default function useToggle(init?: boolean): ToggleState {
     active,
     on: useCallback(() => void setActive(true), []),
     off: useCallback(() => void setActive(false), []),
-    toggle: useCallback(() => void setActive((current) => !current), []),
+    flip: useCallback(() => void setActive((current) => !current), []),
   };
 }
