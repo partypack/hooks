@@ -1,5 +1,4 @@
-import { useMemo, useEffect, useReducer, DispatchWithoutAction } from 'react';
-import stringify from 'json-stable-stringify';
+import { useRef, useMemo, useEffect, useReducer, DispatchWithoutAction } from 'react';
 import isEqual from 'lodash/isEqual';
 
 export type ValidationResult = string | undefined | Promise<SyncedResult>;
@@ -176,12 +175,16 @@ export default function useValidation<
     })
   );
 
-  useEffect(() => void onValid?.(), [onValid]);
+  const valuesRef = useRef<T>();
 
-  useEffect(
-    () => void dispatch({ type: 'update', values }),
-    [stringify(values)]
-  );
+  useEffect(() => {
+    if (!isEqual(values, valuesRef.current)) {
+      valuesRef.current = values;
+      dispatch({ type: 'update', values });
+    }
+  });
+
+  useEffect(() => void onValid?.(), [onValid]);
 
   const validate = useMemo(
     () =>

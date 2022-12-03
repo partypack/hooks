@@ -1,4 +1,5 @@
 export { default as useConst } from './use-const';
+export { default as useRefObject } from './use-ref-object';
 export { default as useToggle } from './use-toggle';
 export { default as useRequiredContext } from './use-required-context';
 export { default as useTrace } from './use-trace';
